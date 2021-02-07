@@ -98,14 +98,12 @@ good to go!
 // FloatType
 //-------------------------------------------------
 
-class FloatType 
+struct FloatType 
 {
-public:
     float add( float lhs, float rhs );
     float subtract( float lhs, float rhs );
     float multiply( float lhs, float rhs );
     float divide( float lhs, float rhs );
-
 };
 
 
@@ -140,9 +138,8 @@ float FloatType::divide( float lhs, float rhs )
 // DoubleType
 //-------------------------------------------------
 
-class DoubleType
+struct DoubleType
 {
-public:
     double add( double lhs, double rhs );
     double subtract( double lhs, double rhs );
     double multiply( double lhs, double rhs );
@@ -177,9 +174,8 @@ double DoubleType::divide( double lhs, double rhs )
 // IntType
 //-------------------------------------------------
 
-class IntType
+struct IntType
 {
-public:
     int add( int lhs, int rhs );
     int subtract( int lhs, int rhs );
     int multiply( int lhs, int rhs );
@@ -207,7 +203,7 @@ int IntType::divide( int lhs, int rhs )
     if(rhs == 0) 
     {
         std::cout << "result of i.divide(): error, integer division by zero will crash the program!\nreturning lhs" << std::endl;
-        return 10;
+        return lhs;
     }
     return lhs / rhs;
 }
