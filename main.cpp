@@ -15,7 +15,12 @@ New/This/Pointers/References conclusion
  */
 
 
+struct A {};
 
+struct HeapA
+{
+    A* aPtr = new A;
+};
 
 
 
