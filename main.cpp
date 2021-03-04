@@ -119,16 +119,19 @@ struct DoubleType;
 
 struct FloatType 
 {
-    float* valuePtr = new float;    // float object created in the heap
-    float& value = *valuePtr;       // value references to the heap allocated float
+    //float* valuePtr = new float;    // float object created in the heap
+    //float& value = *valuePtr;       // value references to the heap allocated float
 
-    //float* value = new float;     // I would code usually this here, but doesn't fit with the instanciations in main
+    float* value = new float;     // I would code usually this here, but doesn't fit with the instanciations in main
 
-    FloatType(float f) : value (f) {}
+    FloatType(float f) 
+    {
+        if(value) *value = f;
+    }
     ~FloatType()
     {
-        delete valuePtr;
-        valuePtr = nullptr;
+        delete value;
+        value = nullptr;
     }
 
     FloatType& add(float rhs );
@@ -140,21 +143,21 @@ struct FloatType
 
 FloatType& FloatType::add(float rhs )
 {
-    value += rhs;
+    *value += rhs;
     return *this;
 }
 
 
 FloatType& FloatType::subtract(float rhs )
 {
-    value -= rhs;
+    *value -= rhs;
     return *this;
 }
 
 
 FloatType& FloatType::multiply(float rhs )
 {
-    value *= rhs;
+    *value *= rhs;
     return *this;
 }
 
@@ -163,7 +166,7 @@ FloatType& FloatType::divide(float rhs )
 {
     if(rhs == 0.0f) 
         std::cout << "\nwarning, floating point division by zero returns 'inf' !" << std::endl;
-    value /= rhs;
+    *value /= rhs;
     return *this;
 }
     
@@ -178,14 +181,19 @@ FloatType& FloatType::divide(float rhs )
 
 struct DoubleType
 {
-    double* valuePtr = new double;
-    double& value = *valuePtr;
+    //double* valuePtr = new double;
+    //double& value = *valuePtr;
 
-    DoubleType(double d) : value (d) {}
+    double* value = new double; 
+
+    DoubleType(double d) 
+    {
+        if(value) *value = d;
+    }
     ~DoubleType()
     {
-        delete valuePtr;
-        valuePtr = nullptr;
+        delete value;
+        value = nullptr;
     }
 
     DoubleType& add(double rhs );
@@ -201,32 +209,32 @@ struct DoubleType
 
 DoubleType& DoubleType::add(double rhs )
 {
-    value += rhs;
+    *value += rhs;
     return *this;
 }
 
 DoubleType& DoubleType::add(const FloatType i)
 {
-    value += i.value;
+    *value += *i.value;
     return *this;
 }
 
 
 DoubleType& DoubleType::subtract(double rhs )
 {
-    value -= rhs;
+    *value -= rhs;
     return *this;
 }
 
 DoubleType& DoubleType::multiply(double rhs )
 {
-    value *= rhs;
+    *value *= rhs;
     return *this;
 }
 
 DoubleType& DoubleType::multiply(const IntType& i)
 {
-    value *= i.value;       // I know the IntType is only declared by name above (line 113). How can I give here the "complete" type of IntType?             
+    //value *= i.value;       // I know the IntType is only declared by name above (line 113). How can I access to the "complete" type of IntType?             
     return *this;
 }
 
@@ -234,13 +242,13 @@ DoubleType& DoubleType::divide(double rhs )
 {
     if(rhs == 0.0) 
         std::cout << "\nwarning, floating point division by zero returns 'inf' !" << std::endl;
-    value /= rhs;
+    *value /= rhs;
     return *this;
 }
 
 DoubleType& DoubleType::devide(const IntType& i)
 {
-    value /= i.value;
+    //*value /= *i.value;
     return *this;
 }
    
@@ -251,14 +259,17 @@ DoubleType& DoubleType::devide(const IntType& i)
 
 struct IntType
 {
-    int* valuePtr = new int;
-    int& value = *valuePtr;
+    int* value = new int;
+    //int& value = *valuePtr;
 
-    IntType(int i) : value(i) {}
+    IntType(int i) 
+    {
+        if(value) *value = i;
+    }
     ~IntType()
     {
-        delete valuePtr;
-        valuePtr = nullptr;
+        delete value;
+        value = nullptr;
     } 
 
     IntType& add(int rhs );
@@ -273,19 +284,19 @@ struct IntType
 
 IntType& IntType::add(int rhs )
 {
-    value += rhs;
+    *value += rhs;
     return *this;
 }
 
 IntType& IntType::subtract(int rhs )
 {
-    value -= rhs;
+    *value -= rhs;
     return *this;
 }
 
 IntType& IntType::multiply(int rhs )
 {
-    value *= rhs;
+    *value *= rhs;
     return *this;
 }
 
@@ -296,13 +307,13 @@ IntType& IntType::divide(int rhs)
         std::cout << "result of i.divide(): error, integer division by zero will crash the program!\nreturning lhs" << std::endl;
         return *this;
     }
-    value /= rhs;
+    *value /= rhs;
     return *this;
 }
 
 IntType& IntType::divide(const DoubleType& dt) 
 {
-    value = dt.value;
+    *value = *dt.value;
     return *this;
 }
 
