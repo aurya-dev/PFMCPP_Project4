@@ -124,12 +124,12 @@ struct DoubleType;
 
 struct FloatType
 {
-    float* value = new float;
+    float* value;
 
-    FloatType(float f) : value (&f) {}
+    FloatType(float f) : value (new float{f}) {}
     ~FloatType()
     {
-        delete value;
+        //delete value;
         value = nullptr;
     }
 
@@ -156,12 +156,12 @@ struct FloatType
 
 struct DoubleType
 {
-    double* value = new double;
+    double* value;
 
-    DoubleType(double d) : value (&d) {}
+    DoubleType(double d) : value (new double{d}) {}
     ~DoubleType()
     {
-        delete value;
+        //delete value;
         value = nullptr;
     }
 
@@ -189,12 +189,12 @@ struct DoubleType
 
 struct IntType
 {
-    int* value = new int;
+    int* value;
 
-    IntType(int i) : value(&i) {}
+    IntType(int i) : value(new int{i}) {}
     ~IntType()
     {
-        delete value;
+        //delete value;
         value = nullptr;
     }
 
@@ -441,10 +441,7 @@ FloatType& FloatType::divide(const DoubleType dt )
 DoubleType& DoubleType::divide(double d )
 {
     if(d == 0.0)
-    {
-        std::cout << "error: integer division by zero is an error and will crash the program!" << std::endl;
-        return *this;
-    }
+        std::cout << "warning: floating point division by zero!" << std::endl;
     *value /= d;
     return *this;
 }
@@ -452,10 +449,7 @@ DoubleType& DoubleType::divide(double d )
 DoubleType& DoubleType::divide(const IntType it)
 {
     if(*it.value == 0)
-    {
-        std::cout << "error: integer division by zero is an error and will crash the program!" << std::endl;
-        return *this;
-    }
+        std::cout << "warning: floating point division by zero!" << std::endl;
     *value /= *it.value;
     return *this;
 }
@@ -463,10 +457,7 @@ DoubleType& DoubleType::divide(const IntType it)
 DoubleType& DoubleType::divide(const FloatType ft )
 {
     if(*ft.value == 0.0)
-    {
-        std::cout << "error: integer division by zero is an error and will crash the program!" << std::endl;
-        return *this;
-    }
+        std::cout << "warning: floating point division by zero!" << std::endl;
     *value /= *ft.value;
     return *this;
 }
