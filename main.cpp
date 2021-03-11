@@ -435,7 +435,7 @@ DoubleType& DoubleType::divide(const IntType& it)
 
 DoubleType& DoubleType::divide(const FloatType& ft )
 {
-    if(*ft.value == 0.0)
+    if(*ft.value == 0.0f)
         std::cout << "warning: floating point division by zero!" << std::endl;
     return divide(*ft.value);
 }
@@ -455,7 +455,7 @@ IntType& IntType::divide(int i)
 
 IntType& IntType::divide(const DoubleType& dt)
 {
-    if(*dt.value == 0)
+    if(*dt.value == 0.0)
     {
         std::cout << "error: integer division by zero is an error and will crash the program!" << std::endl;
         divide(*dt.value);
@@ -465,7 +465,7 @@ IntType& IntType::divide(const DoubleType& dt)
 
 IntType& IntType::divide(const FloatType& ft )
 {
-    if(*ft.value == 0)
+    if(*ft.value == 0.0f)
     {
         std::cout << "error: integer division by zero is an error and will crash the program!" << std::endl;
         divide(*ft.value);
@@ -497,7 +497,7 @@ int main()
     std::cout << "DoubleType add result=" << *dt.add(2.0).value << std::endl;
     std::cout << "DoubleType subtract result=" << *dt.subtract(2.0).value << std::endl;
     std::cout << "DoubleType multiply result=" << *dt.multiply(2.0).value << std::endl;
-    std::cout << "DoubleType divide result=" << *dt.divide(5.f).value << std::endl << std::endl;
+    std::cout << "DoubleType divide result=" << *dt.divide(5.0).value << std::endl << std::endl;
 
     std::cout << "IntType add result=" << *it.add(2).value << std::endl;
     std::cout << "IntType subtract result=" << *it.subtract(2).value << std::endl;
